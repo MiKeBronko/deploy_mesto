@@ -1,4 +1,4 @@
-# sprint14 - backend Mesto
+# sprint15 - backend Mesto
 
 ## ver 0.0.1
 
@@ -9,7 +9,4 @@
 3) Запуск *MongoDB* команда **mongod**
 4) команда **npm run dev** запускает сервер на *<http://localhost:3000>* с хот релоудом. Если не работает установите модуль **npm install nodemon -D**;
 
-### Добавлен роут
-
-- POST /signup — аутентификация
-- POST /sighin — авторизация
+### in procc.....
