@@ -41,7 +41,6 @@ app.use(helmet());
 
 app.use(requestLogger);
 // app.post('/signup', createUser);
-// /*
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -60,7 +59,6 @@ app.post('/signup', celebrate({
     },
   ),
 }), createUser);
-// */
 
 app.post('/signin', login);
 
