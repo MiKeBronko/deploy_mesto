@@ -31,13 +31,13 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   max: 20,
-// });
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+});
 
-// app.use(limiter);
-// app.use(helmet());
+app.use(limiter);
+app.use(helmet());
 
 app.use(requestLogger);
 // app.post('/signup', createUser);
