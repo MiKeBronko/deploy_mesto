@@ -1,6 +1,3 @@
-// require('dotenv').config();
-
-// console.log(process.env.NODE_ENV);
 const express = require('express');
 
 const helmet = require('helmet');
@@ -17,8 +14,6 @@ const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-// const NotFoundError = require('./errors/not-found-err');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -81,7 +76,7 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 
 app.use((err, req, res) => {
-  //console.log(`ERR-----------> ${err.statusCode}`);
+  // console.log(`ERR-----------> ${err.statusCode}`);
   if (err.statusCode) {
     res.status(err.statusCode).send({ message: err.message });
   } else {
