@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { celebrate, Joi, errors, Segments } = require('celebrate');
+const { celebrate, Joi, errors } = require('celebrate');
 const rateLimit = require('express-rate-limit');
 const users = require('./routes/users');
 const cards = require('./routes/cards');
@@ -40,7 +40,6 @@ app.use(limiter);
 app.use(helmet());
 
 app.use(requestLogger);
-// app.post('/signup', createUser);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -60,29 +59,21 @@ app.post('/signup', celebrate({
   ),
 }), createUser);
 
-app.post('/signin', login);
+app.post('/signin', celebrate({
+  body: Joi.object().keys(
+    {
+      email: Joi.string().required().email(),
+      password: Joi.string().required().min(8),
+    },
+  ),
+}), login);
 
 app.use(auth);
 app.use('/', users);
-// app.use('/', celebrate({
-//   [Segments.HEADERS]: Joi.object({
-//     token: Joi.string().token().required(),
-//   }).users,
-// }));
 app.use('/', cards);
-// app.use('/', celebrate({
-//   [Segments.HEADERS]: Joi.object({
-//     token: Joi.string().token().required(),
-//   }).cards,
-// }));
-
 
 app.use('*', (req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-
-
-  // throw new NotFoundError('Запрашиваемый ресурс не найден');
-  // .catch(next);
 });
 
 app.use(errorLogger); // подключаем логгер ошибок
@@ -90,8 +81,10 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 
 app.use((err, req, res) => {
-  console.log(`ERR-----------> ${err.statusCode}`);
-  if (!err.statusCode) {
+  //console.log(`ERR-----------> ${err.statusCode}`);
+  if (err.statusCode) {
+    res.status(err.statusCode).send({ message: err.message });
+  } else {
     const { statusCode = 500, message } = err;
     res
       .status(statusCode)
@@ -99,8 +92,6 @@ app.use((err, req, res) => {
         // проверяем статус и выставляем сообщение в зависимости от него
         message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
       });
-  } else {
-    res.status(err.statusCode).send({ message: err.message });
   }
 });
 
