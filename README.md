@@ -2,4 +2,6 @@
 
 ## ver 1.0.1
 
-## backend Mesto  <https://imesto.gq>
+## Публичный IPv4 на ВМ <130.193.39.106>
+
+## домен Mesto  <https://imesto.tk>
