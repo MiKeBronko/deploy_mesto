@@ -76,7 +76,6 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 
 app.use((err, req, res) => {
-  // console.log(`ERR-----------> ${err.statusCode}`);
   if (err.statusCode) {
     res.status(err.statusCode).send({ message: err.message });
   } else {

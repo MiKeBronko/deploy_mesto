@@ -4,8 +4,8 @@
   "description": "deploy MESTO",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "process.env.NODE_ENV !== 'dev' nodemon server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env NODE_ENV=develop nodemon server.js",
     "test": "jest"
   },
   "author": "MikeBro",
@@ -26,6 +26,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",

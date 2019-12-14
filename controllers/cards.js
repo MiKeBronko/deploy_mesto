@@ -2,7 +2,6 @@ const Card = require('../models/card');
 
 const NotFoundError = require('../errors/not-found-err');
 const Forbidden = require('../errors/forbidden');
-// const ErrReq = require('../errors/err-req');
 
 const handlefindError = () => {
   throw new NotFoundError('Нет карточки с таким id');

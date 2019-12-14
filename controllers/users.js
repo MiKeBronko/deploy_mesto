@@ -3,8 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
-
-console.log(`wtf: ${process.env.NODE_ENV}, ${process.env.JWT_SECRET}`);
+const config = require('../config');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -78,7 +77,7 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       res.send({
-        token: jwt.sign({ _id: user._id }, NODE_ENV !== 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' }),
+        token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : config, { expiresIn: '7d' }),
       });
     })
     .then((user) => {
