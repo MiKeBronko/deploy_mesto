@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
-    "dev": "cross-env NODE_ENV=develop nodemon server.js",
-    "test": "jest"
+    "dev": "cross-env NODE_ENV=develop nodemon server.js"
   },
   "author": "MikeBro",
   "license": "ISC",

@@ -11,6 +11,7 @@ const User = require('../models/user');
 
 const NotFoundError = require('../errors/not-found-err');
 
+
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
@@ -80,8 +81,8 @@ module.exports.login = (req, res, next) => {
         token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : config, { expiresIn: '7d' }),
       });
     })
-    .then((user) => {
-      res.send(user);
-    })
+    // .then((user) => {
+    //   res.send(user);
+    // })
     .catch(next);
 };
