@@ -40,7 +40,7 @@ module.exports.deleteCard = (req, res, next) => {
       if (!card) {
         return handlefindError();
       }
-      if (JSON.stringify(req.user._id) === JSON.stringify(card.owner._id)) {
+      if (card.owner._id.equals(req.user._id)) {
         return Card.findByIdAndRemove(req.params.cardId)
           .then((dataCard) => res.send({ data: dataCard }));
       }

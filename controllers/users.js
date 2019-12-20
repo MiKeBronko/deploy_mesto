@@ -34,7 +34,7 @@ module.exports.findUser = (req, res, next) => {
     .catch(next);
 };
 
-// eslint-disable-next-line consistent-return
+
 module.exports.createUser = (req, res, next) => {
   const { name, about, avatar } = req.body;
   const { email } = req.body;
@@ -81,8 +81,5 @@ module.exports.login = (req, res, next) => {
         token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : config, { expiresIn: '7d' }),
       });
     })
-    // .then((user) => {
-    //   res.send(user);
-    // })
     .catch(next);
 };

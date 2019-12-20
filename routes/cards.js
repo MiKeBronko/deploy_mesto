@@ -15,7 +15,26 @@ cards.post('/cards', celebrate({
     },
   ),
 }), createCard);
-cards.delete('/cards/:cardId', deleteCard);
-cards.put('/cards/:cardId/likes', likeCard);
-cards.delete('/cards/:cardId/likes', dislikeCard);
+cards.delete('/cards/:cardId', celebrate({
+  params: Joi.object().keys(
+    {
+      cardId: Joi.string().alphanum().length(24).regex(/^[0-9a-fA-F]{24}$/),
+    },
+  ).unknown(true),
+}), deleteCard);
+cards.put('/cards/:cardId/likes', celebrate({
+  params: Joi.object().keys(
+    {
+      cardId: Joi.string().alphanum().length(24).regex(/^[0-9a-fA-F]{24}$/),
+    },
+  ).unknown(true),
+}), likeCard);
+cards.delete('/cards/:cardId/likes', celebrate({
+  params: Joi.object().keys(
+    {
+      cardId: Joi.string().alphanum().length(24).regex(/^[0-9a-fA-F]{24}$/),
+    },
+  ).unknown(true),
+}), dislikeCard);
+
 module.exports = cards;
